@@ -1,19 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import {Home} from './components/Home';
 import {Department} from './components/Department';
 import {Employee} from './components/Employee';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Home></Home>
-      <Department></Department>
-      <Employee></Employee>
-      <h2>Merhaba</h2>
-      <Button variant="primary">Tıkla</Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route index element={<Home />} />
+        </Route>
+        <Route path="department" element={<Department />}>
+            <Route path=":teamId" />
+            <Route path="new"  />
+            <Route index />
+          </Route>
+        <Route path="/employee" element={<Employee />}>
+          </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
