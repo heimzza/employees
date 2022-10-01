@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
 import {AddDepModal} from './AddDepModal';
+import {EditDepModal} from './EditDepModal';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
 export class Department extends Component {
@@ -8,7 +9,8 @@ export class Department extends Component {
         super(props);
         this.state={
             deps:[],
-            addModalShow:false
+            addModalShow:false,
+            editModalShow:false
         }
     }
     componentDidMount() {
@@ -29,8 +31,9 @@ export class Department extends Component {
     }
 
     render() {
-        const{deps}=this.state;
+        const{deps, depID, depName}=this.state;
         let addModalClose = () => this.setState({addModalShow:false})
+        let editModalClose = () => this.setState({editModalShow:false})
         return (
             <div>
                 <Table className='mt-4' striped bordered hover size='sm'>
@@ -38,6 +41,7 @@ export class Department extends Component {
                         <tr>
                             <th>DepartmentID</th>
                             <th>DepartmentName</th>
+                            <th>Option</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,6 +49,24 @@ export class Department extends Component {
                             <tr key={dep.DepartmentID}>
                                 <td>{dep.DepartmentID}</td>
                                 <td>{dep.DepartmentName}</td>
+                                <td>
+                                    <ButtonToolbar>
+                                        <Button onClick={() => this.setState({
+                                            editModalShow:true,
+                                            depID:dep.DepartmentID,
+                                            depName:dep.DepartmentName
+                                        })}>
+                                            Edit
+                                        </Button>
+                                        <EditDepModal 
+                                        show={this.state.editModalShow}
+                                        onHide={editModalClose}
+                                        depID={depID}
+                                        depName={depName}
+                                        />
+
+                                    </ButtonToolbar>
+                                </td>
                             </tr>
                         )}
                     </tbody>
