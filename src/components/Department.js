@@ -30,6 +30,18 @@ export class Department extends Component {
             });
     }
 
+    deleteDep(depID){
+        if (window.confirm('Are you sure?')) {
+            fetch('http://localhost:57594/api/department/' + depID, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+        }
+    }
+
     render() {
         const{deps, depID, depName}=this.state;
         let addModalClose = () => this.setState({addModalShow:false})
@@ -57,6 +69,10 @@ export class Department extends Component {
                                             depName:dep.DepartmentName
                                         })}>
                                             Edit
+                                        </Button>
+                                        <Button className='ms-2' variant='danger' 
+                                        onClick={() => this.deleteDep(dep.DepartmentID)}>
+                                            Delete
                                         </Button>
                                         <EditDepModal 
                                         show={this.state.editModalShow}
