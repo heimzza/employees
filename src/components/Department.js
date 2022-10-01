@@ -14,6 +14,9 @@ export class Department extends Component {
     componentDidMount() {
         this.refleshList();
     }
+    componentDidUpdate(prevProps, prevState) {
+        this.refleshList();
+    }
     
     refleshList(){
         fetch('http://localhost:57594/api/department')
