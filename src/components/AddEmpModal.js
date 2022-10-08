@@ -7,6 +7,7 @@ export class AddEmpModal extends Component {
     constructor(props){
         super(props);
         this.state={
+            deps: [],
             snackbarOpen: false,
             snackbarMsg: ''
         }
@@ -19,6 +20,16 @@ export class AddEmpModal extends Component {
             snackbarOpen: false
         });
     }
+
+    componentDidMount() {
+        fetch('http://localhost:57594/api/department').then(response => response.json())
+        .then(data => {
+            this.setState({
+                deps:data
+            })
+        })
+    }
+    
 
     handleSubmit(e) {
         e.preventDefault();
@@ -96,14 +107,17 @@ export class AddEmpModal extends Component {
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>
-                                            Department Name
+                                            Department
                                         </Form.Label>
-                                        <Form.Control
-                                            type='text'
-                                            name='Department'
-                                            required
-                                            placeholder='Department'
-                                        />
+                                        <Form.Control name='Department' as='select'>
+                                            {this.state.deps.map(dep => 
+
+                                                <option key={dep.DepartmentID}>
+                                                    {dep.DepartmentName}
+                                                </option>
+                                            )}
+                                            
+                                        </Form.Control>
                                     </Form.Group>
                                     <Form.Group>
                                         <Form.Label>
@@ -121,7 +135,7 @@ export class AddEmpModal extends Component {
                                             DOJ
                                         </Form.Label>
                                         <Form.Control
-                                            type='text'
+                                            type='date'
                                             name='DOJ'
                                             required
                                             placeholder='DOJ'
