@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
-import {AddDepModal} from './AddDepModal';
+import {AddEmpModal} from './AddEmpModal';
 import {EditDepModal} from './EditDepModal';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
@@ -101,7 +101,7 @@ export class Employee extends Component {
                         Add Employee
                     </Button>
                 </ButtonToolbar>
-                <AddDepModal show={this.state.addModalShow} onHide={addModalClose}/>
+                <AddEmpModal show={this.state.addModalShow} onHide={addModalClose}/>
             </div>
         );
     }
