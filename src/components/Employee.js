@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Table} from 'react-bootstrap';
 import {AddEmpModal} from './AddEmpModal';
-import {EditDepModal} from './EditDepModal';
+import {EditEmpModal} from './EditEmpModal';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
 export class Employee extends Component {
@@ -42,7 +42,7 @@ export class Employee extends Component {
         }
     }
     render() {
-        const{emps, empID, empName}=this.state;
+        const{emps, empID, empName, dep, mailID, doj}=this.state;
         let addModalClose = () => this.setState({addModalShow:false})
         let editModalClose = () => this.setState({editModalShow:false})
         return (
@@ -72,7 +72,10 @@ export class Employee extends Component {
                                         <Button onClick={() => this.setState({
                                             editModalShow:true,
                                             empID:emp.EmployeeID,
-                                            empName:emp.EmployeeName
+                                            empName:emp.EmployeeName,
+                                            dep:emp.Department,
+                                            mailID:emp.MailID,
+                                            doj:emp.DOJ
                                         })}>
                                             Edit
                                         </Button>
@@ -80,11 +83,14 @@ export class Employee extends Component {
                                         onClick={() => this.deleteEmp(emp.EmployeeID)}>
                                             Delete
                                         </Button>
-                                        <EditDepModal 
+                                        <EditEmpModal 
                                         show={this.state.editModalShow}
                                         onHide={editModalClose}
                                         empID={empID}
                                         empName={empName}
+                                        dep={dep}
+                                        mailID={mailID}
+                                        doj={doj}
                                         />
 
                                     </ButtonToolbar>
